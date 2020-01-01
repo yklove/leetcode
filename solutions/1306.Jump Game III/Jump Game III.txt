@@ -1,0 +1,26 @@
+import java.util.HashSet;
+
+class Solution {
+    HashSet<Integer> flag = new HashSet<>();
+
+    public boolean canReach(int[] arr, int start) {
+        if (arr[start] == 0) {
+            return true;
+        }
+        flag.add(start);
+        if (start - arr[start] >= 0 && !flag.contains(start - arr[start])) {
+            boolean x = canReach(arr, start - arr[start]);
+            if (x) {
+                return true;
+            }
+        }
+        if (start + arr[start] < arr.length && !flag.contains(start + arr[start])) {
+            boolean y = canReach(arr, start + arr[start]);
+            if(y){
+                return true;
+            }
+        }
+        flag.remove(start);
+        return false;
+    }
+}
