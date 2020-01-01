@@ -1,0 +1,36 @@
+class Solution {
+    public String convert(String s, int numRows) {
+        if(numRows == 1){
+            return s;
+        }
+        char[][] z = new char[numRows][s.length()];
+        boolean direction = false;
+        int count = 0;
+        int x = 0;
+        int y = 0;
+        for (char c : s.toCharArray()) {
+            z[x][y] = c;
+            if (!direction) {
+                x++;
+            } else {
+                x--;
+                y++;
+            }
+            count++;
+            // 转换方向
+            if (count == numRows - 1) {
+                count = 0;
+                direction = !direction;
+            }
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < z.length; i++) {
+            for (int j = 0; j < z[i].length; j++) {
+                if (z[i][j] != '\u0000') {
+                    stringBuilder.append(z[i][j]);
+                }
+            }
+        }
+        return stringBuilder.toString();
+    }
+}

@@ -1,0 +1,67 @@
+class Solution {
+    private int xCount = 0;
+    private int oCount = 0;
+    private int xThree = 0;
+    private int oThree = 0;
+
+    public boolean validTicTacToe(String[] board) {
+        char[][] boards = new char[3][3];
+        for (int i = 0; i < board.length; i++) {
+            boards[i] = board[i].toCharArray();
+        }
+        for (int i = 0; i < boards.length; i++) {
+            for (int j = 0; j < boards[i].length; j++) {
+                if (boards[i][j] == 'X' || boards[i][j] == 'O') {
+                    dfs(boards, i, j, boards[i][j], 0, 1);
+                    dfs(boards, i, j, boards[i][j], 0, 2);
+                    dfs(boards, i, j, boards[i][j], 0, 3);
+                    dfs(boards, i, j, boards[i][j], 0, 4);
+                }
+                if (boards[i][j] == 'X') {
+                    xCount++;
+                } else if (boards[i][j] == 'O') {
+                    oCount++;
+                }
+            }
+        }
+        if (oCount > xCount || xCount - oCount > 1) {
+            return false;
+        }
+        if(xThree != 0 && oThree != 0 || xThree > 2 || oThree > 2){
+            return false;
+        }
+        if(xThree != 0 && oCount >= xCount || oThree != 0 && xCount != oCount){
+            return false;
+        }
+        return true;
+    }
+
+    private void dfs(char[][] boards, int x, int y, char previous, int count, int direction) {
+        if (x < 0 || x > 2 || y < 0 || y > 2) {
+            return;
+        }
+        if (boards[x][y] == previous) {
+            if (count + 1 == 3) {
+                if(previous == 'X'){
+                    xThree++;
+                }else if(previous == 'O'){
+                    oThree++;
+                }
+            }
+            switch (direction) {
+                case 1:
+                    dfs(boards, x, y + 1, previous, count + 1, 1);
+                    break;
+                case 2:
+                    dfs(boards, x + 1, y + 1, previous, count + 1, 2);
+                    break;
+                case 3:
+                    dfs(boards, x + 1, y, previous, count + 1, 3);
+                    break;
+                case 4:
+                    dfs(boards, x + 1, y - 1, previous, count + 1, 4);
+                    break;
+            }
+        }
+    }
+}

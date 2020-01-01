@@ -1,0 +1,36 @@
+class Solution {
+    private HashMap<Integer, Integer> ans = new HashMap<>();
+
+    public int tribonacci(int n) {
+        if (n == 0) {
+            return 0;
+        } else if (n == 1) {
+            return 1;
+        } else if (n == 2) {
+            return 1;
+        } else {
+            int tribonacci;
+            int tribonacci1;
+            int tribonacci2;
+            if (ans.containsKey(n - 1)) {
+                tribonacci = ans.get(n - 1);
+            } else {
+                tribonacci = tribonacci(n - 1);
+                ans.put(n - 1, tribonacci);
+            }
+            if (ans.containsKey(n - 2)) {
+                tribonacci1 = ans.get(n - 2);
+            } else {
+                tribonacci1 = tribonacci(n - 2);
+                ans.put(n - 2, tribonacci1);
+            }
+            if (ans.containsKey(n - 3)) {
+                tribonacci2 = ans.get(n - 3);
+            } else {
+                tribonacci2 = tribonacci(n - 3);
+                ans.put(n - 3, tribonacci2);
+            }
+            return tribonacci + tribonacci1 + tribonacci2;
+        }
+    }
+}

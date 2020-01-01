@@ -1,0 +1,24 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        char[] chars = s.toCharArray();
+        int max = 0;
+        Map<Character, Integer> bucket = new HashMap<>();
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < chars.length; i++) {
+            while (bucket.containsKey(chars[i])) {
+                bucket.remove(chars[start++]);
+            }
+            bucket.put(chars[i], 1);
+            end = i;
+            if (max < bucket.size()) {
+                max = bucket.size();
+            }
+        }
+        return max;
+    }
+}

@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private Info process(TreeNode treeNode) {
+        if (treeNode == null) {
+            return new Info(0, true);
+        }
+        Info left = process(treeNode.left);
+        Info right = process(treeNode.right);
+        int height = Math.max(left.height, right.height) + 1;
+        boolean isBalanced = left.isBalanced && right.isBalanced && Math.abs(left.height - right.height) <= 1;
+        return new Info(height, isBalanced);
+    }
+
+
+    private class Info {
+        int height;
+        boolean isBalanced;
+
+        public Info(int height, boolean isBalanced) {
+            this.height = height;
+            this.isBalanced = isBalanced;
+        }
+    }
+
+    public int maxDepth(TreeNode root) {
+        return process(root).height;
+    }
+}

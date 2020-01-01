@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+import java.util.Objects;
+
+
+class Solution {
+    private boolean process(TreeNode treeNode1, TreeNode treeNode2) {
+        if (!treeEquals(treeNode1, treeNode2)) {
+            return false;
+        }
+        if (Objects.isNull(treeNode1) && Objects.isNull(treeNode2)) {
+            return true;
+        }
+        return process(treeNode1.left, treeNode2.left) && process(treeNode1.right, treeNode2.right);
+    }
+
+    private boolean treeEquals(TreeNode treeNode1, TreeNode treeNode2) {
+        if (Objects.nonNull(treeNode1) && Objects.nonNull(treeNode2)) {
+            return Objects.equals(treeNode1.val, treeNode2.val);
+        }
+        if (Objects.isNull(treeNode1) && Objects.isNull(treeNode2)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        return process(p, q);
+    }
+}

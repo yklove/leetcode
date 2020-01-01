@@ -1,0 +1,101 @@
+
+
+import java.util.Arrays;
+import java.util.Objects;
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private ListNode[] heap;
+
+    private int size = 0;
+
+    private int max = 0;
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        heap = new ListNode[lists.length];
+        max = lists.length - 1;
+        Arrays.stream(lists).forEach(this::add);
+
+        ListNode heard = new ListNode(-1);
+        ListNode current = heard;
+        while (true) {
+            ListNode remove = remove();
+            if (Objects.isNull(remove)) {
+                break;
+            }
+            current.next = remove;
+            current = remove;
+            if (Objects.nonNull(remove.next)) {
+                add(remove.next);
+            }
+        }
+        return heard.next;
+    }
+
+    private ListNode remove() {
+        if (size <= 0) {
+            return null;
+        }
+        ListNode heapTop = heap[0];
+        heap[0] = heap[size-- - 1];
+        int current = 0;
+        int min = getMin(0);
+        while (heap[current].val > heap[min].val) {
+            ListNode t = heap[current];
+            heap[current] = heap[min];
+            heap[min] = t;
+            current = min;
+            min = getMin(current);
+        }
+        return heapTop;
+    }
+
+    private int getMin(int current) {
+        if (current * 2 + 1 > max || current * 2 + 1 >= size) {
+            return current;
+        } else if (current * 2 + 2 > max || current * 2 + 2 >= size) {
+            if (heap[current * 2 + 1].val < heap[current].val) {
+                return current * 2 + 1;
+            }
+            return current;
+        }
+        if (heap[current * 2 + 1] != null && heap[current * 2 + 2] != null) {
+            return heap[current * 2 + 1].val < heap[current * 2 + 2].val ? current * 2 + 1 : current * 2 + 2;
+        } else if (heap[current * 2 + 1] != null) {
+            if (heap[current * 2 + 1].val < heap[current].val) {
+                return current * 2 + 1;
+            } else {
+                return current;
+            }
+        } else if (heap[current * 2 + 2] != null) {
+            if (heap[current * 2 + 2].val < heap[current].val) {
+                return current * 2 + 2;
+            } else {
+                return current;
+            }
+        } else {
+            return current;
+        }
+    }
+
+    private void add(ListNode listNode) {
+        if(Objects.isNull(listNode)){
+            return;
+        }
+        int current = size;
+        size++;
+        heap[current] = listNode;
+        while (heap[(current - 1) / 2].val > listNode.val) {
+            heap[current] = heap[(current - 1) / 2];
+            heap[(current - 1) / 2] = listNode;
+            current = (current - 1) / 2;
+        }
+    }
+}

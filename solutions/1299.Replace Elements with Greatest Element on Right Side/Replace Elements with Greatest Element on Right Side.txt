@@ -1,0 +1,12 @@
+class Solution {
+    public int[] replaceElements(int[] arr) {
+        int[] ans = new int[arr.length];
+        ans[arr.length - 1] = -1;
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(arr.length, Comparator.reverseOrder());
+        for (int i = arr.length - 1; i > 0; i--) {
+            priorityQueue.add(arr[i]);
+            ans[i - 1] = priorityQueue.peek();
+        }
+        return ans;
+    }
+}

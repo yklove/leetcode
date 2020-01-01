@@ -1,0 +1,80 @@
+class Solution {
+        public static class Heap {
+
+        public Heap(int max) {
+            this.max = max;
+            this.element = new int[max];
+        }
+
+        int size = 0;
+        int max;
+
+        int[] element;
+
+        public void add(int i) {
+            if (size < max) {
+                int position = size;
+                size++;
+                element[position] = i;
+                int parent = (position - 1) / 2;
+                // 无父节点
+                if (parent == position) {
+                    return;
+                }
+                // 满足小根堆
+                if (element[parent] < element[position]) {
+                    return;
+                }
+                // 调整小根堆
+                while (element[parent] > element[position]) {
+                    element[position] = element[parent];
+                    element[parent] = i;
+                    position = parent;
+                    parent = (parent - 1) / 2;
+                }
+            } else {
+                // 要插入的元素小于堆顶元素，忽略
+                if (i < element[0]) {
+                    return;
+                }
+                int position = 0;
+                element[position] = i;
+                while (true) {
+                    int leftChild = position * 2 + 1;
+                    int rightChild = position * 2 + 2;
+                    int maxChild;
+                    // 无子节点
+                    if (leftChild >= max && rightChild >= max) {
+                        break;
+                    } else {
+                        if (leftChild >= max) {
+                            maxChild = rightChild;
+                        } else if (rightChild >= max) {
+                            maxChild = leftChild;
+                        } else {
+                            if (element[leftChild] < element[rightChild]) {
+                                maxChild = leftChild;
+                            } else {
+                                maxChild = rightChild;
+                            }
+                        }
+                    }
+                    if (element[position] > element[maxChild]) {
+                        element[position] = element[maxChild];
+                        element[maxChild] = i;
+                        position = maxChild;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
+    public int findKthLargest(int[] nums, int k) {
+        Heap heap = new Heap(k);
+        Arrays.stream(nums).forEach(heap::add);
+        return heap.element[0];
+    }
+}

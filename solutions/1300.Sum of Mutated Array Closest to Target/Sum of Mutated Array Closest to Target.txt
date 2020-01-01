@@ -1,0 +1,29 @@
+class Solution {
+    public int findBestValue(int[] arr, int target) {
+        int start = target / arr.length;
+        int min = Integer.MAX_VALUE;
+        int ans = start;
+        int max = max(arr);
+        for (int i = start; i <= max; i++) {
+            int sum = 0;
+            for (int value : arr) {
+                sum += Math.min(i, value);
+            }
+            if (Math.abs(sum - target) < min) {
+                ans = i;
+                min = Math.abs(sum - target);
+            }
+        }
+        return ans;
+    }
+
+    private int max(int[] arr) {
+        int max = Integer.MIN_VALUE;
+        for (int i : arr) {
+            if (i > max) {
+                max = i;
+            }
+        }
+        return max;
+    }
+}
