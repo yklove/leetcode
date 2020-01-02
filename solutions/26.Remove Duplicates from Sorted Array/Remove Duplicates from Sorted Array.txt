@@ -1,0 +1,24 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int length = nums.length;
+        int stepLength = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - stepLength]) {
+                stepLength++;
+                length--;
+                nums[i] = Integer.MIN_VALUE;
+            } else {
+                stepLength = 1;
+            }
+        }
+        int count = 1;
+        for (int i = 1; i < length; ) {
+            if (nums[count] == Integer.MIN_VALUE) {
+                count++;
+            } else {
+                nums[i++] = nums[count++];
+            }
+        }
+        return length;
+    }
+}
