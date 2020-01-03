@@ -1,0 +1,53 @@
+/**
+ * status: Accepted
+ *
+ * time: 61 ms
+ *
+ * memory: 49 MB
+ */
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (nums.length < 3) {
+            return ans;
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i - 1 >= 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int x = i + 1;
+            int y = nums.length - 1;
+            while (x < y) {
+                int tmp = nums[i] + nums[x] + nums[y];
+                if (tmp == 0) {
+                    ans.add(Arrays.asList(nums[i], nums[x], nums[y]));
+                    while (nums[x++] == nums[x]) {
+                        if (x >= y) {
+                            break;
+                        }
+                    }
+                    while (nums[y--] == nums[y]) {
+                        if (x >= y) {
+                            break;
+                        }
+                    }
+                } else if (tmp < 0) {
+                    while (nums[x++] == nums[x]) {
+                        if (x >= y) {
+                            break;
+                        }
+                    }
+                } else {
+                    while (nums[y--] == nums[y]) {
+                        if (x >= y) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+}
