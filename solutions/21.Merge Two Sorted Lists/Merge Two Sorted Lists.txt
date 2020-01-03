@@ -1,4 +1,12 @@
 /**
+ * status: Accepted
+ *
+ * time: 1 ms
+ *
+ * memory: 39.9 MB
+ */
+
+/**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;

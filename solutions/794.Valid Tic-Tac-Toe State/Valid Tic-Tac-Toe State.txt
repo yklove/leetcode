@@ -1,3 +1,11 @@
+/**
+ * status: Accepted
+ *
+ * time: 1 ms
+ *
+ * memory: 34.4 MB
+ */
+
 class Solution {
     private int xCount = 0;
     private int oCount = 0;

@@ -1,3 +1,11 @@
+/**
+ * status: Accepted
+ *
+ * time: 1 ms
+ *
+ * memory: 33.1 MB
+ */
+
 class Solution {
     public int kthGrammar(int N, int K) {
         if (N == 1) {

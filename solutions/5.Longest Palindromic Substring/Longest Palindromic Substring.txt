@@ -1,60 +1,62 @@
+/**
+ * status: Accepted
+ *
+ * time: 12 ms
+ *
+ * memory: 36.1 MB
+ */
+
 class Solution {
+    /**
+     * Manacher??
+     *
+     * @param s
+     * @return
+     */
     public String longestPalindrome(String s) {
-        if (s.length() == 1 || s.length() == 0) {
-            return s;
+        if (s == null) {
+            return "";
         }
-        int max = 0;
-        int maxLeft = 0;
-        int maxRight = 0;
-        char[] chars = s.toCharArray();
+        s = process(s);
+        int r = -1;
+        int c = -1;
+        int max = Integer.MIN_VALUE;
+        int iMax = 0;
+        StringBuilder stringBuilder;
+        int[] rArray = new int[s.length()];
         for (int i = 0; i < s.length(); i++) {
-            int tmp = 1;
-            int left = i - 1;
-            int right = i + 1;
-            while (left >= 0 && right < s.length()) {
-                if (chars[left] == chars[right]) {
-                    tmp += 2;
-                    if (tmp > max) {
-                        max = tmp;
-                        maxLeft = left;
-                        maxRight = right;
-                    }
-                    left--;
-                    right++;
+            rArray[i] = r <= i ? 1 : Math.min(rArray[2 * c - i], r - i);
+            while (i + rArray[i] < s.length() && i - rArray[i] > -1) {
+                if (s.charAt(i + rArray[i]) == s.charAt(i - rArray[i])) {
+                    rArray[i]++;
                 } else {
                     break;
                 }
             }
-        }
-        if (s.length() > 1) {
-            for (int i = 0; i < s.length() - 1; i++) {
-                if (chars[i] != chars[i + 1]) {
-                    continue;
-                }
-                int tmp = 2;
-                if (tmp > max) {
-                    max = tmp;
-                    maxLeft = i;
-                    maxRight = i + 1;
-                }
-                int left = i - 1;
-                int right = i + 2;
-                while (left >= 0 && right < s.length()) {
-                    if (chars[left] == chars[right]) {
-                        tmp += 2;
-                        if (tmp > max) {
-                            max = tmp;
-                            maxLeft = left;
-                            maxRight = right;
-                        }
-                        left--;
-                        right++;
-                    } else {
-                        break;
-                    }
-                }
+            if (i + rArray[i] > r) {
+                r = i + rArray[i];
+                c = i;
+            }
+            if (rArray[i] > max) {
+                max = rArray[i];
+                iMax = i;
             }
         }
-        return s.substring(maxLeft, maxRight + 1);
+        stringBuilder = new StringBuilder();
+        for (int j = iMax - max + 1; j < iMax + max; j++) {
+            if ('#' != s.charAt(j)) {
+                stringBuilder.append(s.charAt(j));
+            }
+        }
+        return stringBuilder.toString();
     }
+
+    private static String process(String s) {
+        StringBuilder stringBuilder = new StringBuilder("#");
+        for (char c : s.toCharArray()) {
+            stringBuilder.append(c).append("#");
+        }
+        return stringBuilder.toString();
+    }
+
 }

@@ -1,3 +1,11 @@
+/**
+ * status: Accepted
+ *
+ * time: 1 ms
+ *
+ * memory: 32.9 MB
+ */
+
 class Solution {
     private HashMap<Integer, Integer> ans = new HashMap<>();
 

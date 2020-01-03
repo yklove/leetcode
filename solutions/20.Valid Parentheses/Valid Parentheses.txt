@@ -1,3 +1,11 @@
+/**
+ * status: Accepted
+ *
+ * time: 5 ms
+ *
+ * memory: 34.5 MB
+ */
+
 import java.util.Objects;
 import java.util.Stack;
 

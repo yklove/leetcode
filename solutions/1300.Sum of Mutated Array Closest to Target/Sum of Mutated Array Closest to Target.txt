@@ -1,17 +1,40 @@
+/**
+ * status: Accepted
+ *
+ * time: 7 ms
+ *
+ * memory: 40.3 MB
+ */
+
 class Solution {
-    public int findBestValue(int[] arr, int target) {
+   public int findBestValue(int[] arr, int target) {
         int start = target / arr.length;
         int min = Integer.MAX_VALUE;
         int ans = start;
         int max = max(arr);
-        for (int i = start; i <= max; i++) {
+        while (true) {
+            int count = (max - start) / 2;
+            int current = count + start;
             int sum = 0;
-            for (int value : arr) {
-                sum += Math.min(i, value);
+            for (int i : arr) {
+                sum += Math.min(i, current);
             }
-            if (Math.abs(sum - target) < min) {
-                ans = i;
+            if (Math.abs(sum - target) <= min) {
+                ans = current;
                 min = Math.abs(sum - target);
+            }
+            if (sum > target) {
+                if (max == current) {
+                    break;
+                }
+                max = current;
+            } else if (sum < target) {
+                if (start == current) {
+                    break;
+                }
+                start = current + 1;
+            } else {
+                break;
             }
         }
         return ans;

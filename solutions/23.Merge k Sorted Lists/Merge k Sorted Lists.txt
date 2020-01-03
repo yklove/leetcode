@@ -1,3 +1,11 @@
+/**
+ * status: Accepted
+ *
+ * time: 62 ms
+ *
+ * memory: 39.7 MB
+ */
+
 
 
 import java.util.Arrays;

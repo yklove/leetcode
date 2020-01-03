@@ -1,4 +1,12 @@
 /**
+ * status: Accepted
+ *
+ * time: 1 ms
+ *
+ * memory: 37.4 MB
+ */
+
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

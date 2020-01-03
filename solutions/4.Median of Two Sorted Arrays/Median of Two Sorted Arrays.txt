@@ -1,3 +1,11 @@
+/**
+ * status: Accepted
+ *
+ * time: 3 ms
+ *
+ * memory: 47.3 MB
+ */
+
 class Solution {
      public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         if(nums1.length == 0 && nums2.length == 0){

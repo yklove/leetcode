@@ -1,3 +1,11 @@
+/**
+ * status: Accepted
+ *
+ * time: 1 ms
+ *
+ * memory: 49 MB
+ */
+
 import java.util.HashSet;
 
 class Solution {

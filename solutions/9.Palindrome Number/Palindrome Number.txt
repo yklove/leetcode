@@ -1,3 +1,11 @@
+/**
+ * status: Accepted
+ *
+ * time: 13 ms
+ *
+ * memory: 36.2 MB
+ */
+
 class Solution {
     public boolean isPalindrome(int x) {
         if(x < 0){
